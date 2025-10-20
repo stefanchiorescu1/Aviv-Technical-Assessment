@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Aviv Technical Assesment"
 include(":app")
- 
+include(":core")
