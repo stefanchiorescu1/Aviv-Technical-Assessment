@@ -10,11 +10,14 @@ android {
         version = release(36)
     }
 
+
     defaultConfig {
         minSdk = 29
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String","BASE_URL","\"https://gsl-apps-technical-test.dignp.com/\"")
     }
 
     buildTypes {

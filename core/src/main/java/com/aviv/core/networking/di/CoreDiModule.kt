@@ -1,5 +1,6 @@
 package com.aviv.core.networking.di
 
+import com.aviv.core.BuildConfig
 import com.aviv.core.networking.ListingsApiService
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -38,6 +39,7 @@ class CoreDiModule {
         moshi: Moshi,
         okHttpClient: OkHttpClient
     ): Retrofit = Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .build()
 
