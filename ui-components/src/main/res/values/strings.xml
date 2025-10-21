@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="details_property_type">Property type</string>
+    <string name="details_area">Area</string>
+    <string name="details_contact">Contact</string>
+    <string name="details_price">Price</string>
+    <string name="details_city">Description</string>
+    <string name="details_bedrooms">Bedrooms</string>
+    <string name="details_rooms">Rooms</string>
+
+</resources>

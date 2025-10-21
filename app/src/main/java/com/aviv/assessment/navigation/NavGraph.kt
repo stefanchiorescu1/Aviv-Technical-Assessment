@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.aviv.assessment.listing_details.presentation.view.ListingDetailsDestination
 import com.aviv.assessment.listings.presentation.view.ListingsDestination
 import com.aviv.assessment.navigation.Routes.LISTINGS_ROUTE
 import com.aviv.assessment.navigation.Routes.LISTING_DETAIL_ROUTE
@@ -36,6 +37,10 @@ fun NavGraph(
             )
         ) {
 
+            ListingDetailsDestination()
+
         }
     }
 }
+
+const val LISTING_ID = "id"

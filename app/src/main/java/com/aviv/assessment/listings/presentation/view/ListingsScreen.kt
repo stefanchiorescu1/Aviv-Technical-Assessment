@@ -3,6 +3,7 @@ package com.aviv.assessment.listings.presentation.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -24,7 +25,7 @@ import com.aviv.ui_components.listings_item.ListingsItemModel
 @Composable
 fun ListingsDestination(
     viewModel: ListingsViewModel = hiltViewModel(),
-    onNavigateToDetails: (Int) -> Unit
+    onNavigateToDetails: (String) -> Unit
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -33,7 +34,7 @@ fun ListingsDestination(
         state = state,
         onListingsActions = { action ->
             when(action) {
-                is ListingsActions.NavigateToDetails -> onNavigateToDetails(action.id)
+                is ListingsActions.NavigateToDetails -> onNavigateToDetails(action.id.toString())
             }
 
         }
@@ -50,6 +51,7 @@ fun ListingsScreen(
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(20.dp),
         modifier = Modifier.fillMaxSize()
+            .padding(20.dp)
     ) {
 
         if (state.isLoading) {

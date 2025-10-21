@@ -31,7 +31,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                         .windowInsetsPadding(WindowInsets.safeDrawing)
-                        .padding(20.dp)
                 ) {_ ->
                     val navController = rememberNavController()
                     NavGraph(navController)
