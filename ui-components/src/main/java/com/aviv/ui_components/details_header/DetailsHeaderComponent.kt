@@ -8,16 +8,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.aviv.ui_components.R
 
 @Composable
 fun DetailsHeaderComponent(
-    model: DetailsHeaderModel
+    model: DetailsHeaderModel,
+    customHeight: Dp
 ) {
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-
     AsyncImage(
         model = model.url,
         contentDescription = null,
@@ -25,6 +25,6 @@ fun DetailsHeaderComponent(
         contentScale = ContentScale.Crop,
         modifier = Modifier
             .fillMaxWidth()
-            .height(screenHeight/3)
+            .height(customHeight)
     )
 }

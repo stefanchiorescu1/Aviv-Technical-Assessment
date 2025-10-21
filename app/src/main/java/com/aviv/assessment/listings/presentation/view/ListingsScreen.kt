@@ -54,8 +54,8 @@ fun ListingsScreen(
             .padding(20.dp)
     ) {
 
-        if (state.isLoading) {
-            item {
+        when {
+            state.isLoading -> item {
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier.fillParentMaxSize()
@@ -63,23 +63,26 @@ fun ListingsScreen(
                     CircularProgressIndicator()
                 }
             }
-        }
 
-        items(state.listings, key = { it!!.id }) { listing ->
-            ListingsItemComponent(
-                model = ListingsItemModel(
-                    name = listing?.professional ?: "",
-                    price = listing?.price.toString(),
-                    image = listing?.url ?: "",
-                    city = listing?.city ?: "",
-                ), oncClick = {
-                    listing?.let {
-                        onListingsActions(ListingsActions.NavigateToDetails(it.id))
-                    }
+            state.appException != null -> {}
+
+            else -> {
+                items(state.listings, key = { it!!.id }) { listing ->
+                    ListingsItemComponent(
+                        model = ListingsItemModel(
+                            name = listing?.professional ?: "",
+                            price = listing?.price.toString(),
+                            image = listing?.url ?: "",
+                            city = listing?.city ?: "",
+                        ), oncClick = {
+                            listing?.let {
+                                onListingsActions(ListingsActions.NavigateToDetails(it.id))
+                            }
+                        }
+                    )
                 }
-            )
+            }
         }
-
     }
 
 }

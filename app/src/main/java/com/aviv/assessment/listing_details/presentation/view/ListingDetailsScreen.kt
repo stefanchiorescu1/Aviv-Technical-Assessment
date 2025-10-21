@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,36 +40,49 @@ fun ListingDetailsDestination(
 fun ListingDetailsScreen(
     state: ListingDetailsState
 ) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
 
-    if (state.isLoading) {
-        Box(
+
+    when {
+        state.isLoading -> Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
             CircularProgressIndicator()
         }
-    }
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
 
-        DetailsHeaderComponent(model = DetailsHeaderModel(
-            url = state.listingDetails.url ?: ""
-        ))
+        state.error != null -> {}
 
-        Spacer(modifier = Modifier.height(20.dp))
+        else -> {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Top
+            ) {
 
-        DetailsBodyComponent(model = DetailsBodyModel(
-            name = state.listingDetails.propertyType,
-            price = state.listingDetails.price,
-            bedrooms = state.listingDetails.bedrooms,
-            rooms = state.listingDetails.rooms,
-            city = state.listingDetails.city,
-            propertyType = state.listingDetails.propertyType
-        ))
+                DetailsHeaderComponent(
+                    model = DetailsHeaderModel(
+                        url = state.listingDetails.url ?: ""
+                    ), customHeight = screenHeight / 2
+                )
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                DetailsBodyComponent(
+                    model = DetailsBodyModel(
+                        name = state.listingDetails.propertyType,
+                        price = state.listingDetails.price,
+                        bedrooms = state.listingDetails.bedrooms,
+                        rooms = state.listingDetails.rooms,
+                        city = state.listingDetails.city,
+                        propertyType = state.listingDetails.propertyType,
+                        area = state.listingDetails.area,
+                        contact = state.listingDetails.professional
+                    )
+                )
+
+            }
+        }
     }
 
 

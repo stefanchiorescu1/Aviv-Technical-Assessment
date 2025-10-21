@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,14 +28,13 @@ import org.w3c.dom.Text
 fun DetailsBodyComponent(
     model: DetailsBodyModel
 ) {
-
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 10.dp)
+            .padding(horizontal = 20.dp)
     ) {
 
         Row(
@@ -48,7 +48,7 @@ fun DetailsBodyComponent(
                 )
             )
 
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.weight(1f))
 
             Text(
                 text = model.propertyType,
@@ -56,25 +56,153 @@ fun DetailsBodyComponent(
                     fontSize = 18.sp
                 )
             )
-
-
-
         }
 
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
 
+            Text(
+                text = stringResource(R.string.details_city),
+                style = TextStyle(
+                    fontSize = 18.sp,
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = model.city,
+                style = TextStyle(
+                    fontSize = 18.sp
+                )
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+            Text(
+                text = stringResource(R.string.details_area),
+                style = TextStyle(
+                    fontSize = 18.sp,
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = model.area.toString(),
+                style = TextStyle(
+                    fontSize = 18.sp
+                )
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+            Text(
+                text = stringResource(R.string.details_contact),
+                style = TextStyle(
+                    fontSize = 18.sp,
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = model.contact,
+                style = TextStyle(
+                    fontSize = 18.sp
+                )
+            )
+        }
+
+        model.rooms?.let {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text(
+                    text = stringResource(R.string.details_rooms),
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                    )
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Text(
+                    text = it.toString(),
+                    style = TextStyle(
+                        fontSize = 18.sp
+                    )
+                )
+            }
+        }
+
+        model.bedrooms?.let {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+
+                Text(
+                    text = stringResource(R.string.details_bedrooms),
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                    )
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Text(
+                    text = it.toString(),
+                    style = TextStyle(
+                        fontSize = 18.sp
+                    )
+                )
+            }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+            Text(
+                text = stringResource(R.string.details_price),
+                style = TextStyle(
+                    fontSize = 18.sp,
+                )
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                text = model.price.toString(),
+                style = TextStyle(
+                    fontSize = 18.sp
+                )
+            )
+        }
     }
-
 }
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DetailsBodyComponentPreview() {
-    DetailsBodyComponent(model = DetailsBodyModel(
-        name = "Preview",
-        price = 200.0,
-        bedrooms = 1,
-        rooms = 2,
-        city = "Bucharest",
-        propertyType = "Villa"
-    ))
+    DetailsBodyComponent(
+        model = DetailsBodyModel(
+            name = "Preview",
+            price = 200.0,
+            bedrooms = 1,
+            rooms = 2,
+            city = "Bucharest",
+            propertyType = "Villa",
+            area = 250.0,
+            contact = "Contact Preview"
+        )
+    )
 }

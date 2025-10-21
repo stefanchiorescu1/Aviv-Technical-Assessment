@@ -7,4 +7,6 @@ data class DetailsBodyModel(
     val rooms: Int?,
     val city: String,
     val propertyType: String,
+    val area: Double,
+    val contact: String
 )
