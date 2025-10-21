@@ -21,7 +21,6 @@ class ListingRepositoryImpl @Inject constructor(
             listingsMapper.mapToListingsModel(it)
         }
     )) {
-
         is Resource.Error -> Resource.Error(response.failure)
         is Resource.Success -> Resource.Success(response.data)
     }

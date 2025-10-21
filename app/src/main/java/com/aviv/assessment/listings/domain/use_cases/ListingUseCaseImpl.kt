@@ -10,8 +10,8 @@ class ListingUseCaseImpl @Inject constructor(
     private val listingsRepository: ListingsRepository
 ): ListingsUseCase {
     override suspend fun getListings(
-        onError: (AppException) -> Unit,
-        onSuccess: (List<ListingsModel?>) -> Unit
+        onError: suspend (AppException) -> Unit,
+        onSuccess: suspend (List<ListingsModel?>) -> Unit
     ) {
         when(val response = listingsRepository.getListings()) {
             is Resource.Error -> onError(response.failure)

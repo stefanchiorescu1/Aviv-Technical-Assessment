@@ -7,7 +7,7 @@ object Routes {
 
     const val LISTINGS_ROUTE = LISTINGS_SCREEN
 
-    const val LISTING_DETAIL_ROUTE = "$LISTING_DETAIL_SCREEN/{listingId}"
+    const val LISTING_DETAIL_ROUTE = LISTING_DETAIL_SCREEN
 
 }
 

@@ -6,7 +6,7 @@ import com.aviv.core.networking.AppException
 interface ListingsUseCase {
 
     suspend fun getListings(
-        onError: (AppException) -> Unit,
-        onSuccess: (List<ListingsModel?>) -> Unit
+        onError: suspend (AppException) -> Unit,
+        onSuccess: suspend (List<ListingsModel?>) -> Unit
     )
 }

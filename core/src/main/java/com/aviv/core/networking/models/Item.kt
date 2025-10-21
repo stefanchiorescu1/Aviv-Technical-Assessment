@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Item(
     @Json(name = "area")
-    val area: Int,
+    val area: Double,
     @Json(name = "bedrooms")
     val bedrooms: Int?,
     @Json(name = "city")
@@ -17,7 +17,7 @@ data class Item(
     @Json(name = "offerType")
     val offerType: Int,
     @Json(name = "price")
-    val price: Int,
+    val price: Double,
     @Json(name = "professional")
     val professional: String,
     @Json(name = "propertyType")

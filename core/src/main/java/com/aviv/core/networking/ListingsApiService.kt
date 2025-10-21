@@ -7,7 +7,7 @@ import retrofit2.http.Path
 
 interface ListingsApiService {
 
-    @GET("")
+    @GET("listings.json")
     suspend fun getListings(): ListingsDto
 
     @GET("listings/{id}.json")
