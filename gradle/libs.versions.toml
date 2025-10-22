@@ -17,6 +17,9 @@ hilt = "2.51.1"
 hiltNavigation = "1.2.0"
 uiTooling = "1.9.3"
 coil = "2.5.0"
+mockK = "1.14.6"
+coroutines-test = "1.7.3"
+turbine = "1.0.0"
 
 
 [libraries]
@@ -37,6 +40,14 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coroutines-test = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines-test"}
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+
+
+#MOCK K
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockK"}
+mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockK" }
+
 
 
 #NETWORKING

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,6 +19,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.aviv.assessment.listings.presentation.viewmodel.ListingsActions
 import com.aviv.assessment.listings.presentation.viewmodel.ListingsState
 import com.aviv.assessment.listings.presentation.viewmodel.ListingsViewModel
+import com.aviv.core.networking.AppException
+import com.aviv.ui_components.R
+import com.aviv.ui_components.error.ErrorComponent
 import com.aviv.ui_components.listings_item.ListingsItemComponent
 import com.aviv.ui_components.listings_item.ListingsItemModel
 
@@ -35,6 +39,7 @@ fun ListingsDestination(
         onListingsActions = { action ->
             when(action) {
                 is ListingsActions.NavigateToDetails -> onNavigateToDetails(action.id.toString())
+                else -> viewModel.onActions(action)
             }
 
         }
@@ -64,19 +69,39 @@ fun ListingsScreen(
                 }
             }
 
-            state.appException != null -> {}
+            state.appException != null -> {
+                item {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.fillParentMaxSize()
+                    ) {
+                        ErrorComponent(
+                            message = when (state.appException) {
+                                is AppException.DefaultRemoteException -> state.appException.transactionMessage
+                                AppException.NoServiceException -> stringResource(R.string.no_service_exception)
+                                AppException.TimeoutException -> stringResource(R.string.timeout_exception)
+                                AppException.UnknownException -> stringResource(R.string.generic_exception)
+                            },
+                            onRetry = {
+                                onListingsActions(ListingsActions.Retry)
+                            }
+                        )
+                    }
+                }
+            }
 
             else -> {
-                items(state.listings, key = { it!!.id }) { listing ->
+                val availableListings = state.listings.filterNotNull()
+                items(availableListings, key = { it.id!! }) { listing ->
                     ListingsItemComponent(
                         model = ListingsItemModel(
-                            name = listing?.professional ?: "",
-                            price = listing?.price.toString(),
-                            image = listing?.url ?: "",
-                            city = listing?.city ?: "",
+                            name = listing.professional ,
+                            price = listing.price.toString(),
+                            image = listing.url ?: "",
+                            city = listing.city,
                         ), oncClick = {
-                            listing?.let {
-                                onListingsActions(ListingsActions.NavigateToDetails(it.id))
+                            listing.id?.let {
+                                onListingsActions(ListingsActions.NavigateToDetails(listing.id))
                             }
                         }
                     )

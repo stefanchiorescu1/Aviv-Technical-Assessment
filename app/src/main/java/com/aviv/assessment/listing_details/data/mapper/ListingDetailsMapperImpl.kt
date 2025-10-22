@@ -7,14 +7,14 @@ import javax.inject.Inject
 class ListingDetailsMapperImpl @Inject constructor(): ListingDetailsMapper {
 
     override fun mapToDetailsModel(listing: Item): ListingsModel = ListingsModel(
-        id = listing.id,
+        id = listing.id ?: 0,
         bedrooms = listing.bedrooms,
-        city = listing.city,
-        area = listing.area,
+        city = listing.city ?: "",
+        area = listing.area ?: 0.0,
         url = listing.url,
-        price = listing.price,
-        professional = listing.professional,
-        propertyType = listing.propertyType,
+        price = listing.price ?: 0.0,
+        professional = listing.professional ?: "",
+        propertyType = listing.propertyType ?: "",
         rooms = listing.rooms,
     )
 }

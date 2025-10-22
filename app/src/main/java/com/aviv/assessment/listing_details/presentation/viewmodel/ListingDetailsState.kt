@@ -16,5 +16,5 @@ data class ListingDetailsState(
         propertyType = "",
         rooms = null
     ),
-    val error: AppException? = null
+    val appException: AppException? = null
 )

@@ -10,14 +10,14 @@ class ListingMapperImpl @Inject constructor(): ListingsMapper {
         response.map { item ->
             item?.let { listingItem ->
                 ListingsModel(
-                    id = listingItem.id,
+                    id = listingItem.id ?: Int.MAX_VALUE,
                     bedrooms = listingItem.bedrooms,
-                    city = listingItem.city,
-                    area = listingItem.area,
+                    city = listingItem.city ?: "",
+                    area = listingItem.area ?: 0.0,
                     url = listingItem.url,
-                    price = listingItem.price,
-                    professional = listingItem.professional,
-                    propertyType = listingItem.propertyType,
+                    price = listingItem.price ?: 0.0,
+                    professional = listingItem.professional ?: "",
+                    propertyType = listingItem.propertyType ?: "",
                     rooms = listingItem.rooms
                 )
             }

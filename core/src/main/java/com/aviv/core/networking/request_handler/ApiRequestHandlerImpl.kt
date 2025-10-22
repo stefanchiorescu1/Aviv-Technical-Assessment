@@ -20,7 +20,7 @@ class ApiRequestHandlerImpl @Inject constructor() : ApiRequestHandler {
         } catch (jsonDataException: JsonDataException) {
             return Resource.Error(failure = AppException.UnknownException)
         } catch (timeoutException: SocketTimeoutException) {
-            return Resource.Error(failure = AppException.NoServiceException)
+            return Resource.Error(failure = AppException.TimeoutException)
         } catch (timeoutException: InterruptedIOException) {
             return Resource.Error(failure = AppException.NoServiceException)
         } catch (unknownHostException: UnknownHostException) {

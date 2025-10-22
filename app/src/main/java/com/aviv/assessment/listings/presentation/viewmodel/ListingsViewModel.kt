@@ -25,26 +25,34 @@ class ListingsViewModel @Inject constructor(
         fetchListings()
     }
 
+    fun onActions(listingsActions: ListingsActions) = when (listingsActions) {
+        is ListingsActions.Retry -> retry()
+        is ListingsActions.NavigateToDetails -> Unit
+
+    }
+
     private fun fetchListings() {
         _state.update { it.copy(isLoading = true) }
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             listingsUseCase.getListings(
                 onError = { appException ->
-                    withContext(Dispatchers.Main) {
-                        _state.update {
-                            it.copy(isLoading = false, appException = appException)
-                        }
+                    _state.update {
+                        it.copy(isLoading = false, appException = appException)
                     }
                 },
                 onSuccess = { listings ->
-                    withContext(Dispatchers.Main) {
-                        _state.update {
-                            it.copy(isLoading = false, listings = listings)
-                        }
+                    _state.update {
+                        it.copy(isLoading = false, listings = listings)
                     }
                 }
             )
         }
+
+    }
+
+    private fun retry() {
+        _state.update { it.copy(appException = null) }
+        fetchListings()
     }
 
 

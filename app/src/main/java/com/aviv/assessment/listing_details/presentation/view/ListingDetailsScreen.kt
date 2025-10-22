@@ -1,6 +1,5 @@
 package com.aviv.assessment.listing_details.presentation.view
 
-import android.widget.Space
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,17 +12,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.aviv.assessment.listing_details.presentation.viewmodel.ListingDetailsActions
 import com.aviv.assessment.listing_details.presentation.viewmodel.ListingDetailsState
 import com.aviv.assessment.listing_details.presentation.viewmodel.ListingDetailsViewModel
+import com.aviv.assessment.listings.presentation.viewmodel.ListingsActions
+import com.aviv.core.networking.AppException
+import com.aviv.ui_components.R
 import com.aviv.ui_components.details_body.DetailsBodyComponent
 import com.aviv.ui_components.details_body.DetailsBodyModel
 import com.aviv.ui_components.details_header.DetailsHeaderComponent
 import com.aviv.ui_components.details_header.DetailsHeaderModel
-import java.nio.file.WatchEvent
+import com.aviv.ui_components.error.ErrorComponent
 
 @Composable
 fun ListingDetailsDestination(
@@ -32,13 +36,17 @@ fun ListingDetailsDestination(
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    ListingDetailsScreen(state = state)
+    ListingDetailsScreen(
+        state = state,
+        onListingDetailsActions = viewModel::onActions
+    )
 
 }
 
 @Composable
 fun ListingDetailsScreen(
-    state: ListingDetailsState
+    state: ListingDetailsState,
+    onListingDetailsActions: (ListingDetailsActions) -> Unit
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
 
@@ -52,7 +60,25 @@ fun ListingDetailsScreen(
         }
 
 
-        state.error != null -> {}
+        state.appException != null -> {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                ErrorComponent(
+                    message = when (state.appException) {
+                        is AppException.DefaultRemoteException -> state.appException.transactionMessage
+                        AppException.NoServiceException -> stringResource(R.string.no_service_exception)
+                        AppException.TimeoutException -> stringResource(R.string.timeout_exception)
+                        AppException.UnknownException -> stringResource(R.string.generic_exception)
+                    },
+                    onRetry = {
+                        state
+                        onListingDetailsActions(ListingDetailsActions.Retry(id = state.listingDetails.id))
+                    }
+                )
+            }
+        }
 
         else -> {
             Column(
@@ -91,5 +117,5 @@ fun ListingDetailsScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ListingDetailsScreenPreview() {
-    ListingDetailsScreen(state = ListingDetailsState())
+    ListingDetailsScreen(state = ListingDetailsState(), onListingDetailsActions = {})
 }

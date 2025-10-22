@@ -8,4 +8,9 @@
     <string name="details_bedrooms">Bedrooms</string>
     <string name="details_rooms">Rooms</string>
 
+    <!-- Exceptions -->
+    <string name="timeout_exception">The request has timed out!</string>
+    <string name="no_service_exception">No connectivity!</string>
+    <string name="generic_exception">Something went wrong. Please try again later.</string>
+
 </resources>

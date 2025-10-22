@@ -13,12 +13,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class ListingDetailsViewModel @Inject constructor(
     private val listingDetailsUseCase: ListingDetailsUseCase,
     savedStateHandle: SavedStateHandle
-): ViewModel() {
+) : ViewModel() {
 
 
     private val _state = MutableStateFlow(ListingDetailsState())
@@ -32,29 +33,33 @@ class ListingDetailsViewModel @Inject constructor(
 
     }
 
+    fun onActions(listingDetailsActions: ListingDetailsActions) = when (listingDetailsActions) {
+        is ListingDetailsActions.Retry -> retry(listingDetailsActions.id)
+    }
+
     private fun getListingDetails(listingId: Int) {
         _state.update { it.copy(isLoading = true) }
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             listingDetailsUseCase.getListingDetails(
                 listingId = listingId,
-                onError = {
-                    withContext(Dispatchers.Main) {
-                        _state.update {
-                            it.copy(isLoading = false, error = it.error)
-                        }
+                onError = { appException ->
+                    _state.update {
+                        it.copy(isLoading = false, appException = appException)
                     }
                 },
                 onSuccess = { model ->
-                    withContext(Dispatchers.Main) {
-                        _state.update {
-                            it.copy(isLoading = false, listingDetails = model)
-                        }
+                    _state.update {
+                        it.copy(isLoading = false, listingDetails = model)
                     }
-                },
+                }
             )
         }
     }
 
 
+    private fun retry(id: Int) {
+        _state.update { it.copy(appException = null) }
+        getListingDetails(id)
+    }
 
 }
