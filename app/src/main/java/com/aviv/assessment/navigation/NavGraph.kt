@@ -36,7 +36,11 @@ fun NavGraph(
                 }
             )
         ) {
-            ListingDetailsDestination()
+            ListingDetailsDestination(
+                onNavigateBack = {
+                    navHostController.navigateUp()
+                }
+            )
         }
     }
 }

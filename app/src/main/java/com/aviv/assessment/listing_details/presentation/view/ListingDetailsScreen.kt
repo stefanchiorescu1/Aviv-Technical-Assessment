@@ -31,14 +31,16 @@ import com.aviv.ui_components.error.ErrorComponent
 
 @Composable
 fun ListingDetailsDestination(
-    viewModel: ListingDetailsViewModel = hiltViewModel()
+    viewModel: ListingDetailsViewModel = hiltViewModel(),
+    onNavigateBack: () -> Unit
 ) {
 
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     ListingDetailsScreen(
         state = state,
-        onListingDetailsActions = viewModel::onActions
+        onListingDetailsActions = viewModel::onActions,
+        onNavigateBack = onNavigateBack
     )
 
 }
@@ -46,7 +48,8 @@ fun ListingDetailsDestination(
 @Composable
 fun ListingDetailsScreen(
     state: ListingDetailsState,
-    onListingDetailsActions: (ListingDetailsActions) -> Unit
+    onListingDetailsActions: (ListingDetailsActions) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
 
@@ -72,7 +75,10 @@ fun ListingDetailsScreen(
                         AppException.UnknownException -> stringResource(R.string.generic_exception)
                     },
                     onRetry = {
-                        onListingDetailsActions(ListingDetailsActions.Retry(id = state.listingDetails.id))
+                        when(state.listingDetails.id) {
+                            0 -> onNavigateBack()
+                            else -> onListingDetailsActions(ListingDetailsActions.Retry(id = state.listingDetails.id))
+                        }
                     }
                 )
             }
@@ -114,5 +120,5 @@ fun ListingDetailsScreen(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ListingDetailsScreenPreview() {
-    ListingDetailsScreen(state = ListingDetailsState(), onListingDetailsActions = {})
+    ListingDetailsScreen(state = ListingDetailsState(), onListingDetailsActions = {}, onNavigateBack = {})
 }
