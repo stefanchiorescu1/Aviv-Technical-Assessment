@@ -91,8 +91,7 @@ fun ListingsScreen(
             }
 
             else -> {
-                val availableListings = state.listings.filterNotNull()
-                items(availableListings, key = { it.id!! }) { listing ->
+                items(state.listings.filterNotNull(), key = { it.id }) { listing ->
                     ListingsItemComponent(
                         model = ListingsItemModel(
                             name = listing.professional ,
@@ -100,9 +99,7 @@ fun ListingsScreen(
                             image = listing.url ?: "",
                             city = listing.city,
                         ), oncClick = {
-                            listing.id?.let {
-                                onListingsActions(ListingsActions.NavigateToDetails(listing.id))
-                            }
+                            onListingsActions(ListingsActions.NavigateToDetails(listing.id))
                         }
                     )
                 }

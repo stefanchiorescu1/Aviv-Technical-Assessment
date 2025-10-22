@@ -1,4 +1,4 @@
-package com.aviv.core.networking
+package com.aviv.core.networking.apiservice
 
 import com.aviv.core.networking.models.Item
 import com.aviv.core.networking.models.ListingsDto

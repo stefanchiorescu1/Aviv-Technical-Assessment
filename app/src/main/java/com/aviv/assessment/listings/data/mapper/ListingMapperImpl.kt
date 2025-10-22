@@ -1,5 +1,6 @@
 package com.aviv.assessment.listings.data.mapper
 
+import com.aviv.assessment.listings.domain.mapper.ListingsMapper
 import com.aviv.assessment.listings.domain.models.ListingsModel
 import com.aviv.core.networking.models.ListingsDto
 import javax.inject.Inject
@@ -10,7 +11,7 @@ class ListingMapperImpl @Inject constructor(): ListingsMapper {
         response.map { item ->
             item?.let { listingItem ->
                 ListingsModel(
-                    id = listingItem.id ?: Int.MAX_VALUE,
+                    id = listingItem.id ?: 0,
                     bedrooms = listingItem.bedrooms,
                     city = listingItem.city ?: "",
                     area = listingItem.area ?: 0.0,

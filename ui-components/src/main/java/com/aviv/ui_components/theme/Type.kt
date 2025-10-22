@@ -1,4 +1,4 @@
-package com.aviv.assessment.ui.theme
+package com.aviv.ui_components.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

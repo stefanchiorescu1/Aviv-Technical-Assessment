@@ -1,6 +1,6 @@
 package com.aviv.assessment.listing_details.domain.use_cases
 
-import com.aviv.assessment.listing_details.data.repository.ListingDetailsRepository
+import com.aviv.assessment.listing_details.domain.repositories.ListingDetailsRepository
 import com.aviv.assessment.listings.domain.models.ListingsModel
 import com.aviv.core.networking.AppException
 import com.aviv.core.networking.Resource

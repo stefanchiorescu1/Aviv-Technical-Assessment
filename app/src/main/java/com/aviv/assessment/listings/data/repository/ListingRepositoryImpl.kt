@@ -1,10 +1,10 @@
-package com.aviv.assessment.listings.domain.repository
+package com.aviv.assessment.listings.data.repository
 
-import com.aviv.assessment.listings.data.mapper.ListingsMapper
-import com.aviv.assessment.listings.data.repository.ListingsRepository
+import com.aviv.assessment.listings.domain.mapper.ListingsMapper
 import com.aviv.assessment.listings.domain.models.ListingsModel
-import com.aviv.core.networking.ListingsApiService
+import com.aviv.assessment.listings.domain.repository.ListingsRepository
 import com.aviv.core.networking.Resource
+import com.aviv.core.networking.apiservice.ListingsApiService
 import com.aviv.core.networking.request_handler.ApiRequestHandler
 import javax.inject.Inject
 

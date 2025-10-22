@@ -1,10 +1,10 @@
 package com.aviv.test
 
-import com.aviv.assessment.listing_details.data.mapper.ListingDetailsMapper
-import com.aviv.assessment.listing_details.domain.repositories.ListingDetailsRepositoryImpl
+import com.aviv.assessment.listing_details.domain.mapper.ListingDetailsMapper
+import com.aviv.assessment.listing_details.data.repository.ListingDetailsRepositoryImpl
 import com.aviv.assessment.listings.domain.models.ListingsModel
 import com.aviv.core.networking.AppException
-import com.aviv.core.networking.ListingsApiService
+import com.aviv.core.networking.apiservice.ListingsApiService
 import com.aviv.core.networking.Resource
 import com.aviv.core.networking.models.Item
 import com.aviv.core.networking.request_handler.ApiRequestHandler
@@ -28,14 +28,23 @@ class ListingDetailsRepositoryImplTest {
         apiRequestHandler = mockk()
         listingsApiService = mockk()
         listingDetailsMapper = mockk()
-        repository = ListingDetailsRepositoryImpl(apiRequestHandler, listingsApiService, listingDetailsMapper)
+        repository = ListingDetailsRepositoryImpl(
+            apiRequestHandler,
+            listingsApiService,
+            listingDetailsMapper
+        )
     }
 
     @Test
     fun `GIVEN getListingDetails returns success THEN repository returns success`() = runBlocking {
         // Given
         val mockListingsModel = mockk<ListingsModel>()
-        coEvery { apiRequestHandler.handleRequest<Item, ListingsModel>(any(), any()) } returns Resource.Success(mockListingsModel)
+        coEvery {
+            apiRequestHandler.handleRequest<Item, ListingsModel>(
+                any(),
+                any()
+            )
+        } returns Resource.Success(mockListingsModel)
 
         // When
         val result = repository.getListingDetails(1)
@@ -49,7 +58,12 @@ class ListingDetailsRepositoryImplTest {
     fun `GIVEN getListingDetails returns error THEN repository returns error`() = runBlocking {
         // Given
         val mockException = AppException.DefaultRemoteException("Network error")
-        coEvery { apiRequestHandler.handleRequest<Item, ListingsModel>(any(), any()) } returns Resource.Error(mockException)
+        coEvery {
+            apiRequestHandler.handleRequest<Item, ListingsModel>(
+                any(),
+                any()
+            )
+        } returns Resource.Error(mockException)
 
         // When
         val result = repository.getListingDetails(1)

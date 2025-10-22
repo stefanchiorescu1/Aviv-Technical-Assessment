@@ -36,9 +36,7 @@ fun NavGraph(
                 }
             )
         ) {
-
             ListingDetailsDestination()
-
         }
     }
 }

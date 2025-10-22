@@ -1,4 +1,4 @@
-package com.aviv.assessment.listings.data.mapper
+package com.aviv.assessment.listings.domain.mapper
 
 import com.aviv.assessment.listings.domain.models.ListingsModel
 import com.aviv.core.networking.models.ListingsDto

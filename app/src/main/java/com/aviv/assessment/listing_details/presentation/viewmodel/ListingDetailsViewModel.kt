@@ -6,14 +6,11 @@ import androidx.lifecycle.viewModelScope
 import com.aviv.assessment.listing_details.domain.use_cases.ListingDetailsUseCase
 import com.aviv.assessment.navigation.LISTING_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 @HiltViewModel
 class ListingDetailsViewModel @Inject constructor(
@@ -21,16 +18,13 @@ class ListingDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-
     private val _state = MutableStateFlow(ListingDetailsState())
     val state = _state.asStateFlow()
-
 
     init {
         savedStateHandle.get<Int>(LISTING_ID)?.let {
             getListingDetails(it)
         }
-
     }
 
     fun onActions(listingDetailsActions: ListingDetailsActions) = when (listingDetailsActions) {
@@ -55,7 +49,6 @@ class ListingDetailsViewModel @Inject constructor(
             )
         }
     }
-
 
     private fun retry(id: Int) {
         _state.update { it.copy(appException = null) }

@@ -10,5 +10,4 @@ sealed class AppException() : Exception() {
 
     data class DefaultRemoteException(val transactionMessage: String) : AppException()
 
-
 }

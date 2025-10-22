@@ -1,10 +1,10 @@
 package com.aviv.test
 
-import com.aviv.assessment.listings.data.mapper.ListingsMapper
+import com.aviv.assessment.listings.domain.mapper.ListingsMapper
 import com.aviv.assessment.listings.domain.models.ListingsModel
-import com.aviv.assessment.listings.domain.repository.ListingRepositoryImpl
+import com.aviv.assessment.listings.data.repository.ListingRepositoryImpl
 import com.aviv.core.networking.AppException
-import com.aviv.core.networking.ListingsApiService
+import com.aviv.core.networking.apiservice.ListingsApiService
 import com.aviv.core.networking.Resource
 import com.aviv.core.networking.models.ListingsDto
 import com.aviv.core.networking.request_handler.ApiRequestHandler
@@ -35,7 +35,12 @@ class ListingsRepositoryImplTest {
     fun `GIVEN getListings returns success THEN repository returns success`() = runBlocking {
         // Given
         val mockListingsModel = listOf(mockk<ListingsModel>())
-        coEvery { apiRequestHandler.handleRequest<ListingsDto, List<ListingsModel?>>(any(), any()) } returns Resource.Success(mockListingsModel)
+        coEvery {
+            apiRequestHandler.handleRequest<ListingsDto, List<ListingsModel?>>(
+                any(),
+                any()
+            )
+        } returns Resource.Success(mockListingsModel)
 
         // When
         val result = repository.getListings()
@@ -49,7 +54,12 @@ class ListingsRepositoryImplTest {
     fun `GIVEN getListings returns error THEN repository returns error`() = runBlocking {
         // Given
         val mockException = AppException.DefaultRemoteException("Network error")
-        coEvery { apiRequestHandler.handleRequest<ListingsDto, List<ListingsModel?>>(any(), any()) } returns Resource.Error(mockException)
+        coEvery {
+            apiRequestHandler.handleRequest<ListingsDto, List<ListingsModel?>>(
+                any(),
+                any()
+            )
+        } returns Resource.Error(mockException)
 
         // When
         val result = repository.getListings()

@@ -1,9 +1,9 @@
 package com.aviv.assessment.listing_details.di
 
-import com.aviv.assessment.listing_details.data.mapper.ListingDetailsMapper
+import com.aviv.assessment.listing_details.domain.mapper.ListingDetailsMapper
 import com.aviv.assessment.listing_details.data.mapper.ListingDetailsMapperImpl
-import com.aviv.assessment.listing_details.data.repository.ListingDetailsRepository
-import com.aviv.assessment.listing_details.domain.repositories.ListingDetailsRepositoryImpl
+import com.aviv.assessment.listing_details.domain.repositories.ListingDetailsRepository
+import com.aviv.assessment.listing_details.data.repository.ListingDetailsRepositoryImpl
 import com.aviv.assessment.listing_details.domain.use_cases.ListingDetailsUseCase
 import com.aviv.assessment.listing_details.domain.use_cases.ListingDetailsUseCaseImpl
 import dagger.Binds

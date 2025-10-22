@@ -59,7 +59,6 @@ fun ListingDetailsScreen(
             CircularProgressIndicator()
         }
 
-
         state.appException != null -> {
             Box(
                 contentAlignment = Alignment.Center,
@@ -73,7 +72,6 @@ fun ListingDetailsScreen(
                         AppException.UnknownException -> stringResource(R.string.generic_exception)
                     },
                     onRetry = {
-                        state
                         onListingDetailsActions(ListingDetailsActions.Retry(id = state.listingDetails.id))
                     }
                 )
@@ -106,7 +104,6 @@ fun ListingDetailsScreen(
                         contact = state.listingDetails.professional
                     )
                 )
-
             }
         }
     }

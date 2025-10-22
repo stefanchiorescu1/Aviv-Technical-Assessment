@@ -1,7 +1,7 @@
 package com.aviv.core.networking.di
 
 import com.aviv.core.BuildConfig
-import com.aviv.core.networking.ListingsApiService
+import com.aviv.core.networking.apiservice.ListingsApiService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
